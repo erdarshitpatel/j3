@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Blessed Moment 🌼</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Times New Roman", serif;
+}
+
+/* BODY WITH SOFT COLOR CHANGE */
+body {
+  height: 100vh;
+  overflow: hidden;
+  animation: bgChange 24s ease-in-out infinite;
+}
+
+/* Background animation */
+@keyframes bgChange {
+  0%   { background: #fff9ec; }
+  25%  { background: #fdebd3; }
+  50%  { background: #fbeee6; }
+  75%  { background: #fdf2f8; }
+  100% { background: #fff9ec; }
+}
+
+/* START SCREEN */
+.start {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* EMOJI FLOW */
+.emoji-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.emoji {
+  position: absolute;
+  bottom: -10%;
+  opacity: 0.6;
+  animation: floatEmoji linear infinite;
+}
+
+@keyframes floatEmoji {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-120vh);
+    opacity: 0;
+  }
+}
+
+/* MAIN CONTENT */
+.container {
+  position: relative;
+  z-index: 2;
+  height: 100vh;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 30px;
+  color: #6b2c1f;
+  margin-bottom: 22px;
+}
+
+/* SINGLE IMAGE WITH CONTINUOUS MOVEMENT */
+.photo-wrap {
+  perspective: 1200px;
+}
+
+.photo-wrap img {
+  width: 280px;
+  max-width: 90%;
+  border-radius: 18px;
+  box-shadow: 0 25px 45px rgba(0,0,0,0.25);
+  animation: divineMove 8s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
+/* Gentle continuous motion */
+@keyframes divineMove {
+  0% {
+    transform: translateY(0) rotateY(-4deg);
+  }
+  50% {
+    transform: translateY(-14px) rotateY(4deg);
+  }
+  100% {
+    transform: translateY(0) rotateY(-4deg);
+  }
+}
+
+/* TEXT */
+.caption {
+  margin-top: 26px;
+  font-size: 18px;
+  line-height: 1.7;
+  color: #4a1f1a;
+  max-width: 320px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 26px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="m3.mp3" type="audio/mpeg">
+</audio>
+
+<!-- START SCREEN -->
+<div class="start" onclick="startBlessing()">
+  Tap with devotion 🌼
+</div>
+
+<!-- EMOJI BACKGROUND -->
+<div class="emoji-layer"></div>
+
+<!-- MAIN CONTENT -->
+<div class="container" id="content">
+  <h1>God’s Blessings ✨</h1>
+
+  <div class="photo-wrap">
+    <img src="photo.jpeg" alt="Blessed Memory">
+  </div>
+
+  <p class="caption">
+    Ye Jumkha tumhare vo Comfort zone ke liye
+    jo bina bole bhi sab keh jaata hai <br>
+    -- Darshit Sapariya
+  </p>
+</div>
+
+<script>
+/* START */
+function startBlessing() {
+  document.querySelector(".start").style.display = "none";
+  document.getElementById("content").style.display = "flex";
+  document.getElementById("bgMusic").play();
+}
+
+/* EMOJI FLOW */
+const emojis = ["🪔","🌼","✨","🙏"];
+const layer = document.querySelector(".emoji-layer");
+
+function createEmoji() {
+  const span = document.createElement("span");
+  span.className = "emoji";
+  span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+  span.style.left = Math.random() * 100 + "vw";
+  span.style.fontSize = 18 + Math.random() * 22 + "px";
+  span.style.animationDuration = 16 + Math.random() * 10 + "s";
+
+  layer.appendChild(span);
+
+  setTimeout(() => span.remove(), 26000);
+}
+
+setInterval(createEmoji, 1200);
+</script>
+
+</body>
+</html>
